@@ -47,6 +47,20 @@ if (set.find(5) != set.end()) cout << "5 is in the set";
 // Divide String
 #include <string>
 str.substr(1) // <- str에 있는 두번째 element부터 마지막까지 반환
+
+// Rotation
+void _rotate(vector<vector<int>> &key){
+    int m = key.size();
+    vector<vector<int>> temp(m, vector<int>(m, 0));
+    for(int i = 0; i < m; i++){
+        for(int j = 0; j < m; j++){
+            //temp[i][j] = key[j][m - i - 1]; // Anti Clock-Wise
+            temp[i][j] = key[m - j - 1][i]; //Clock-Wise
+        }
+    }
+    key = temp;
+    return;
+}
      
 // DFS & BFS
 const int N = 6;
