@@ -18,3 +18,9 @@ N×M크기의 배열로 표현되는 미로가 있다.
 
 <br>
 Comment - 
+
+최단거리 탐색을 할 때는 BFS를 써서 하는 게 맞다
+
+DFS를 쓰면 모든 경로를 가봐야만 알 수가 있기 때문이다
+
+BFS를 쓰면서 Depth를 파악하기 위해서는 새로운 Grid 하나에 Grid[Target_r][Target_c] = Grid[Cur_r][Cur_c] + 1;를 해주면 된다
