@@ -2,18 +2,17 @@
 #include <vector>
 #include <fstream>
 #include <cstring>
+#include <queue>
 
 using namespace std;
 
 int N, M;
 int Grid[101][101];
 bool visited[101][101];
+int depth[101][101];
 
 int dy[4] = { -1, 0, 1, 0 };
 int dx[4] = { 0, 1, 0, -1 };
-
-int depth = 1;
-int totNum = 100000;
 
 struct Pos
 {
@@ -48,6 +47,34 @@ void dfs(const Pos& s)
 }
 */
 
+void bfs(const Pos& s)
+{
+	queue<Pos> q;
+	q.push(s);
+	depth[s.r][s.c]++;
+
+	while (!q.empty())
+	{
+		Pos v = q.front();
+		q.pop();
+
+		if (visited[v.r][v.c]) continue;
+		visited[v.r][v.c] = true;
+
+		for (int i = 0; i < 4; i++)
+		{
+			int target_r = v.r + dy[i];
+			int target_c = v.c + dx[i];
+			if (target_r < 1 || target_r > N || target_c < 1 || target_c > M) continue;
+			if (Grid[target_r][target_c] == 0 || visited[target_r][target_c]) continue;
+			depth[target_r][target_c] = depth[v.r][v.c] + 1;
+			q.push({ target_r, target_c });
+		}
+
+
+	}
+}
+
 int main()
 {
 	ifstream txt_input("input.txt");
@@ -64,8 +91,8 @@ int main()
 		}
 	}
 
-	dfs({ 1, 1 });
-	cout << totNum;
+	bfs({ 1, 1 });
+	cout << depth[N][M];
 
 	return 0;
 }
